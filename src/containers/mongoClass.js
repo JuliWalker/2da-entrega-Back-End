@@ -19,6 +19,16 @@ class MongoClass {
         }
     }
 
+    async saveNew(obj){
+        try {
+            const newProduct = await this.collection.create(obj)
+            return newProduct
+        }
+        catch (error) {
+            throw new Error("error: ",error)
+        }
+    }
+
 }
 
 export default MongoClass

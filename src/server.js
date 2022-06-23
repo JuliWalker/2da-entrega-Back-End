@@ -19,3 +19,6 @@ try {
 } catch (error) {
     console.log('Error de conexión con el servidor...', error)
 }
+
+
+// ACORDATE QUE FALTA CREAR LOS SCHEMAS ANTES DE PROBARLO!

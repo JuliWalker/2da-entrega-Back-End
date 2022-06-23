@@ -1,34 +1,38 @@
 import {Router} from 'express'
+import { productsDao as api } from '../daos'
 
 const router = Router()
 
 
-
 router.get('/', async (req,res)=>{
-    const products = await api.getAll()
-    res.json(products)
+    try {
+        const allProducts = await api.getAll()
+        res.json(allProducts)
+    } catch (error) {
+        console.log(error)
+    }    
 })
 
-router.get('/:id', async (req,res)=>{
+/* router.get('/:id', async (req,res)=>{
     const {id} = req.params
     const product = await api.getById(id)
     if (product == null ) {
         res.json("el ID buscado no existe")
     }
     res.json(product)
+}) */
+
+router.post('/', async (req,res)=>{
+    try {
+        const obj = req.body
+        const createProduct = await api.saveNew(obj)
+        res.json(createProduct)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
-router.post('/', access, async (req,res)=>{
-    const obj = req.body
-    const date = Date.now()
-    const dateNow = new Date(date)
-    const dateString = dateNow.toUTCString()
-    obj.timestamps = dateString
-    await api.saveNew(obj)
-    res.json("elemento cargado con exito")
-})
-
-router.put('/:id', access, async (req,res)=>{
+/* router.put('/:id', access, async (req,res)=>{
     const {id} = req.params
     const obj = req.body
     const date = Date.now()
@@ -51,6 +55,6 @@ router.delete('/:id', access, async (req,res)=>{
     } else {
         res.json("el producto no fue encontrado y por lo tanto no pudimos borrarlo")
     }
-})
+}) */
 
 export default router

@@ -1,11 +1,9 @@
 import MongoClass from "../../containers/mongoClass"
 
-class MongoDBProducts extends MongoClass{
+class MongoDBCarts extends MongoClass{
     constructor(){
-        super('products',{
+        super('carts',{
             nombre: { type: String, required: true},
         })
     }
 }
-
-export default MongoDBProducts

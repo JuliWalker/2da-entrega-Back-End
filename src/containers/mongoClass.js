@@ -19,6 +19,15 @@ class MongoClass {
         }
     }
 
+    async getOne(id) {
+        try{
+            const one = await this.collection.findById(id)
+            return one
+        }catch(err){
+            throw new Error(err)
+        }
+    }
+
     async saveNew(obj){
         try {
             const newProduct = await this.collection.create(obj)
@@ -26,6 +35,24 @@ class MongoClass {
         }
         catch (error) {
             throw new Error("error: ",error)
+        }
+    }
+
+    async update(id, doc) {
+        try{
+            const updatedDoc = await this.collection.findByIdAndUpdate(id, doc)
+            return updatedDoc
+        }catch(err){
+            throw new Error(err)
+        }
+    }
+
+    async delete(id) {
+        try{
+            const deletedDoc = await this.collection.findByIdAndDelete(id)
+            return deletedDoc
+        }catch(err){
+            throw new Error(err)
         }
     }
 

@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { productsDao as api } from '../daos'
+import { productsDao as api } from '../daos/index.js'
 
 const router = Router()
 
@@ -11,16 +11,17 @@ router.get('/', async (req,res)=>{
     } catch (error) {
         console.log(error)
     }    
-})
+});
 
-/* router.get('/:id', async (req,res)=>{
-    const {id} = req.params
-    const product = await api.getById(id)
-    if (product == null ) {
-        res.json("el ID buscado no existe")
+router.get('/:id', async (req, res) => {
+    try{
+        const producto = await api.getOne(req.params.id);
+        producto? res.status(200).json(producto) : res.status(404).json({message: 'Producto no encontrado. id: ' + req.params.id});
     }
-    res.json(product)
-}) */
+    catch (err){
+        res.status(500).json({message: err.message});
+    }
+});
 
 router.post('/', async (req,res)=>{
     try {
@@ -28,33 +29,33 @@ router.post('/', async (req,res)=>{
         const createProduct = await api.saveNew(obj)
         res.json(createProduct)
     } catch (error) {
-        console.log(error)
+        res.json({message: err.message});
     }
-})
+});
 
-/* router.put('/:id', access, async (req,res)=>{
-    const {id} = req.params
-    const obj = req.body
-    const date = Date.now()
-    const dateNow = new Date(date)
-    const dateString = dateNow.toUTCString()
-    obj.timestamps = dateString
-    const exito = await api.replaceById(id, obj)
-    if (exito) {
-        res.json("producto reemplazado con exito")
-    } else {
-        res.json("el producto no fue encontrado y por lo tanto no pudimos reemplazarlo")
+router.put('/:id', async (req, res) => {
+    try{
+        const productoActualizado = await api.update(req.params.id, req.body);
+        res.json({
+            message: 'Producto actualizado correctamente',
+            id: productoActualizado._id
+            });
+    }catch (err){
+        res.json({message: err.message});
     }
-})
+});
 
-router.delete('/:id', access, async (req,res)=>{
-    const {id} = req.params
-    const exito = await api.deleteById(id)
-    if (exito) {
-        res.json("producto eliminado con exito")
-    } else {
-        res.json("el producto no fue encontrado y por lo tanto no pudimos borrarlo")
+router.delete('/:id', async (req, res) => {
+    try{
+        const productoBorrado = await api.delete(req.params.id);
+        res.json({
+            message: 'Producto borrado correctamente',
+            id: productoBorrado._id
+            });
     }
-}) */
+    catch (err){
+        res.status(500).json({message: err.message});
+    }
+});
 
 export default router

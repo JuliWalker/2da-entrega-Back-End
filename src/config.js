@@ -1,15 +1,15 @@
 import 'dotenv/config'
 import express from 'express'
 
-export const options = {
+const options = {
     mongoDB:{
-        URL:DB_MONGO,
+        URL: process.env.DB_MONGO,
         options:{
             useNewUrlParser: true,
             useUnifiedTopology: true
         }
-    },
-    mariaDB:{
+    }
+/*     mariaDB:{
         client:'mysql',
         connection:{
             host:'localhost',
@@ -25,5 +25,7 @@ export const options = {
             filename: "./db.sqlite"
         },
         useNullAsDefault: true
-    }
+    } */
 }
+
+export default options

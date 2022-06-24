@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 const PORT = 8080
-// import routesProducts from './routes/products'
+import routesProducts from './routes/products'
 // import routesCart from './routes/cart'
 
 
@@ -10,7 +10,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use('/api/productos',routesProducts)
+app.use('/api/productos',routesProducts)
 // app.use('/api/carrito',routesCart)
 
 try {
@@ -19,6 +19,3 @@ try {
 } catch (error) {
     console.log('Error de conexión con el servidor...', error)
 }
-
-
-// ACORDATE QUE FALTA CREAR LOS SCHEMAS ANTES DE PROBARLO!

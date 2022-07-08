@@ -7,7 +7,8 @@ const router = Router()
 router.get('/', async (req,res)=>{
     try {
         const allProducts = await api.getAll()
-        res.json(allProducts)
+        console.log(allProducts)
+        res.render("home", { nombre: req.session.nombre, products: allProducts });
     } catch (error) {
         console.log(error)
     }    

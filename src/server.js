@@ -39,12 +39,14 @@ import routesProducts from './routes/products'
 // import routesCart from './routes/cart'
 import loginRouter from './routes/login.js';
 import logoutRouter from './routes/logout.js';
+import registerRouter from './routes/register.js';
 
 app.use('/', homeRouter);
 app.use('/api/productos',routesProducts)
 // app.use('/api/carrito',routesCart)
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/registro', registerRouter);
 
 
 /** Server */

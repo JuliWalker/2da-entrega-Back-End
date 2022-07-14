@@ -12,22 +12,22 @@
 <body>
     <div class="container">
         <div class="field">
-            <label class="label mt-6">Nombre</label>
+            <label class="label mt-6">Nuevo usuario</label>
             <!-- para que se use el action="/login" ?? -->
-            <form action="/login" method="post" class="control has-icons-left has-icons-right">
-                <!-- Cambiar nombre por email -->
+            <form action="/registro" method="post" class="control has-icons-left has-icons-right">
+                <input class="input is-success mt-3" type="email" name="email" placeholder="Ingresa tu e-mail" >
                 <input class="input is-success mt-3" type="text" name="nombre" placeholder="Ingresa tu nombre" >
-                <!-- <input class="input is-success mt-3" type="text" name="password" placeholder="Ingresa tu contrasena" > -->
+                <input class="input is-success mt-3" type="text" name="password" placeholder="Ingresa tu contrasena" >
                 <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                 </span>
-                <button type="submit" class="button is-primary mt-3">Enviar</button>
+                <button type="submit" class="button is-primary mt-3">Crear usuario</button>
             </form>
         </div>
         
         <div class="field mt-6">
-            <label class="label">No tiene un usuario?</label>
-            <button onclick="location.href='/registro'" class="button is-primary mt-3">Go to register</button>
+            <label class="label">Ya tienes un usuario?</label>
+            <button onclick="location.href='/login'" class="button is-primary mt-3">Go to login</button>
         </div>
    </div>
 </body>

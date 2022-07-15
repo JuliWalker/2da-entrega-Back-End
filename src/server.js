@@ -1,8 +1,9 @@
-const express = require('express');
-// cambiarlo por -- import express  from "express";
+import express  from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import 'dotenv/config'
+import passport from "passport";
+import './passport/local.js'
 
 const morgan = require('morgan');
 const app = express();
@@ -19,13 +20,14 @@ app.use(session(
         secret: 'secret',
         resave: true,
         saveUninitialized: true,
-        // aca en vez de conectarnos con Mongoose nos estamos conectando con MongoStore - Esto no usa una collection? Usa algo parecido a las sessions pero de mongo?
         store: MongoStore.create({
             mongoUrl: process.env.DB_MONGO,
             ttl: 60 * 10 // 10 minutes
             })
     }
 ));
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 /** Views */

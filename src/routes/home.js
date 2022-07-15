@@ -1,13 +1,18 @@
 import { Router } from "express";
+import passport from "passport";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    if(req.session.nombre){
-        res.redirect("/api/productos");
-    }else{
-    res.redirect("/login");
+function isAuth(req,res,next){
+    if(req.isAuthenticated()){
+        next()
+    } else {
+        res.render("login")
     }
+}
+
+router.get("/",isAuth, (req, res) => {
+        res.redirect("/api/productos");
 });
 
 

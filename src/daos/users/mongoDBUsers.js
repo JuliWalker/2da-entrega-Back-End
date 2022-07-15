@@ -28,4 +28,13 @@ export class MongoDBUsers extends MongoClass {
         }
     }
 
+    async getByMail(mail) {
+        try{
+            const user = await this.collection.findOne( {email:mail} )
+            return user
+        }catch(err){
+            throw new Error(err)
+        }
+    }
+
 }

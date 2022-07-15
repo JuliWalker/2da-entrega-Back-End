@@ -1,22 +1,33 @@
 import MongoClass from "../../containers/mongoClass.js"
+import mongoose from "mongoose";
+import bcrypt from "bcrypt"
+
+const usuariosSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true
+    },
+    nombre: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+});
+
+usuariosSchema.methods.encriptarPassword = async (password) => {
+    return bcrypt.hashSync(password,bcrypt.genSaltSync(8));
+}
+usuariosSchema.methods.compararPassword = async (password) => {
+    return bcrypt.compareSync(password,this.password);
+}
+
 
 export class MongoDBUsers extends MongoClass {
     constructor() {
-        super('users', {
-           
-            email: {
-                type: String,
-                required: true
-            },
-            nombre: {
-                type: String,
-                required: true
-            },
-            password: {
-                type: String,
-                required: true
-            }
-        });
+        super('users', usuariosSchema );
     }
 
     async getByName(name) {
